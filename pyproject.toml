@@ -1,0 +1,22 @@
+[project]
+name = "katiba_chat"
+version = "0.0.1"
+authors = [
+  { name="KE programmer", email="ken@99nth.com" },
+]
+description = "Retrieval Augmented Generation for the Kenya Constitution"
+readme = "README.md"
+requires-python = ">=3.11"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: GNU Affero General Public License v3",
+    "Operating System :: OS Independent",
+]
+
+[project.urls]
+Homepage = "https://github.com/programmer-ke/katiba-chat"
+Issues = "https://github.com/programmer-ke/katiba-chat/issues"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
