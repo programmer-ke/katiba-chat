@@ -1,3 +1,3 @@
 # Katiba Chat
 
-Stay informed of the Kenyan Constitution
+Stay informed on the Kenyan Constitution
