@@ -1,0 +1,5 @@
+mypy
+black
+pytest
+isort
+python-lsp-server
