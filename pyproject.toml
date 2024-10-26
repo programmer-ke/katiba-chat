@@ -13,6 +13,10 @@ classifiers = [
     "Operating System :: OS Independent",
 ]
 
+dependencies = [
+  "Whoosh-Reloaded==2.7.5",
+]
+
 [project.urls]
 Homepage = "https://github.com/programmer-ke/katiba-chat"
 Issues = "https://github.com/programmer-ke/katiba-chat/issues"

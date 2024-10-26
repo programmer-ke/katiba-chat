@@ -9,6 +9,9 @@ from typing import Protocol
 class Query:
     text: str
 
+    def __str__(self):
+        return self.text
+
 
 @dataclass
 class Article:
