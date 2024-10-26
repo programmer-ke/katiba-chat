@@ -1,0 +1,5 @@
+
+
+* TODO search output should be Article object
+* TODO lazily load articles (only if index is missing)
+* TODO run through linters

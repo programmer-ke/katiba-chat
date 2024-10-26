@@ -20,12 +20,12 @@ class WhooshIndex(core.AbstractIndex):
         number=F.STORED,
     )
 
-    def __init__(self, data: list[dict], index_dirname: str):
+    def __init__(self, data: list[dict], index_dirname: str | pathlib.Path):
         """Initialize the index, creating it if necessary"""
 
         path = pathlib.Path(index_dirname)
         if not path.exists():
-            path.mkdir()
+            path.mkdir(parents=True)
 
         is_empty = len(list(path.iterdir())) == 0
         if is_empty:
