@@ -1,11 +1,10 @@
-import json
 import os
 import tempfile
+
 import pytest
 
+FIXTURES_DIR = os.path.join(os.path.dirname(__file__), "fixtures")
 
-
-FIXTURES_DIR = os.path.join(os.path.dirname(__file__), 'fixtures')
 
 @pytest.fixture
 def temp_dir_name():
@@ -15,4 +14,4 @@ def temp_dir_name():
 
 @pytest.fixture
 def constitution_articles_path():
-    return os.path.join(FIXTURES_DIR, 'constitution.json')
+    return os.path.join(FIXTURES_DIR, "constitution.json")

@@ -1,17 +1,17 @@
 """Retrieval adapters"""
+
 import json
-import pathlib
 import logging
+import pathlib
 
 from whoosh import fields as F
 from whoosh import index as whoosh_index
 from whoosh import qparser
 
-
 from .. import core
 
-
 log = logging.getLogger(__name__)
+
 
 class WhooshIndex(core.AbstractIndex):
     """Lexical Search indexing with Whoosh"""
@@ -32,15 +32,17 @@ class WhooshIndex(core.AbstractIndex):
         self._ensure_exists(index_dir)
         self._create_index_if_missing(data_path, index_dir)
         self._index = whoosh_index.open_dir(index_dirname)
-        self._search_fields = ['title', 'clauses', 'chapter', 'part']
+        self._search_fields = ["title", "clauses", "chapter", "part"]
 
-    def _create_index_if_missing(self, data_path: pathlib.Path, destination: pathlib.Path):
+    def _create_index_if_missing(
+        self, data_path: pathlib.Path, destination: pathlib.Path
+    ):
         is_empty = len(list(destination.iterdir())) == 0
         if is_empty:
             log.info(f"Creating index at {destination}")
-            with open(data_path, 'rt') as f:
+            with open(data_path, "rt") as f:
                 data = json.load(f)
-                
+
             data_index = whoosh_index.create_in(str(destination), self.schema)
             writer = data_index.writer()
             for doc in data:
@@ -50,11 +52,13 @@ class WhooshIndex(core.AbstractIndex):
     def _ensure_exists(self, path: pathlib.Path):
         if not path.exists():
             path.mkdir(parents=True)
-        
+
     def search(self, query, num_results):
         with self._index.searcher() as searcher:
-            parser = qparser.MultifieldParser(self._search_fields, schema=self.schema, group=qparser.OrGroup)
+            parser = qparser.MultifieldParser(
+                self._search_fields, schema=self.schema, group=qparser.OrGroup
+            )
             query = parser.parse(str(query))
             results = searcher.search(query, limit=num_results)
-            results = [core.Article(**dict(r)) for r in results]            
+            results = [core.Article(**dict(r)) for r in results]
         return results
