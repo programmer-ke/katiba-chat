@@ -56,5 +56,5 @@ class WhooshIndex(core.AbstractIndex):
             parser = qparser.MultifieldParser(self._search_fields, schema=self.schema, group=qparser.OrGroup)
             query = parser.parse(str(query))
             results = searcher.search(query, limit=num_results)
-            results = [dict(r) for r in results]            
+            results = [core.Article(**dict(r)) for r in results]            
         return results

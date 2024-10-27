@@ -17,9 +17,9 @@ def main(query: str):
     index = retrieval.WhooshIndex(ARTICLES_PATH, index_dirname)
     query = core.Query(query)
     
-    result = core.search(index, query)
-    print(result, file=sys.stdout)
-    return result
+    results = core.search(index, query)
+    for r in results:
+        print(r, "\n", file=sys.stdout)
 
 
 def user_data_dir(file_name):

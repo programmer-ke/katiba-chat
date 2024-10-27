@@ -1,7 +1,7 @@
 """Entity and Use Case Layer"""
-
 from collections.abc import Iterable
 from dataclasses import dataclass
+import textwrap
 from typing import Protocol
     
 
@@ -21,6 +21,15 @@ class Article:
     number: int
     part: str | None = None
 
+    def __str__(self):
+        fmt = textwrap.dedent(f"""
+        Chapter: {self.chapter}
+        Part: {self.part}
+        Title: {self.title}
+        Number: {self.number}
+        Clauses: {{}}
+        """)
+        return fmt.format(self.clauses).strip()
 
 
 class AbstractIndex(Protocol):

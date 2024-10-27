@@ -8,3 +8,4 @@ def test_can_search_whoosh_index(temp_dir_name, constitution_articles_path):
     num_results = 3
     results = whoosh_index.search(query, num_results)
     assert len(results) == num_results
+    assert all([isinstance(r, core.Article) for r in results])

@@ -18,3 +18,22 @@ def test_returns_default_results_num():
     num_results = 3
     results = core.search(index, query, num_results)
     assert len(list(results)) == num_results
+    assert all([isinstance(r, core.Article) for r in results])
+
+
+def test_stringified_query():
+    text = "who holds sovereign power?"
+    q = core.Query(text=text)
+    assert str(q) == text
+
+def test_stringified_article():
+    article = core.Article(
+        title="title",
+        clauses="clause a b c",
+        chapter="Chapter 1: foobar",
+        number=23,
+        part="quux"
+    )
+
+    text = str(article)
+    assert all([attr in text for attr in (article.title, article.clauses, article.chapter, article.part, str(article.number))])
