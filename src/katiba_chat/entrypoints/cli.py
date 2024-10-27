@@ -11,7 +11,7 @@ from ..adapters import retrieval
 ARTICLES_PATH = os.path.join(os.path.dirname(__file__), '..', 'data', 'constitution_articles.json')
 
 
-def main(query: str):
+def entrypoint(query: str):
 
     index_dirname = user_data_dir("whoosh_index")
     index = retrieval.WhooshIndex(ARTICLES_PATH, index_dirname)
@@ -49,11 +49,3 @@ def user_data_dir(file_name):
 
     # then with destination file
     return path.expanduser() / file_name
-
-
-if __name__ == '__main__':
-    if len(sys.argv) != 2:
-        print(f"Usage: {sys.argv[0]} <query>", file=sys.stderr)
-        sys.exit(1)
-    query = sys.argv[1]
-    main(query)

@@ -1,10 +1,10 @@
 #+TODO: TODO(t) IN_PROGRESS(p) | DONE(d)
-* TODO shorten cli path
 * TODO run through linters
 
-* IN_PROGRESS search output should be Article object
 
+* DONE shorten cli path
 
+* DONE search output should be Article object
 
 * DONE lazily load articles (only if index is missing)
 
