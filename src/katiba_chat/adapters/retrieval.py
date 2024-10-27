@@ -24,11 +24,11 @@ class WhooshIndex(core.AbstractIndex):
         number=F.STORED,
     )
 
-    def __init__(self, data_path: str, index_dirname: str | pathlib.Path):
+    def __init__(self, data_pathname: str, index_dirname: str | pathlib.Path):
         """Initialize the index, creating it if necessary"""
 
         index_dir = pathlib.Path(index_dirname)
-        data_path = pathlib.Path(data_path)
+        data_path = pathlib.Path(data_pathname)
         self._ensure_exists(index_dir)
         self._create_index_if_missing(data_path, index_dir)
         self._index = whoosh_index.open_dir(index_dirname)

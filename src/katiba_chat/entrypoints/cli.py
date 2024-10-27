@@ -11,11 +11,11 @@ from ..adapters import retrieval
 ARTICLES_PATH = os.path.join(os.path.dirname(__file__), '..', 'data', 'constitution_articles.json')
 
 
-def entrypoint(query: str):
+def entrypoint(question: str):
 
     index_dirname = user_data_dir("whoosh_index")
     index = retrieval.WhooshIndex(ARTICLES_PATH, index_dirname)
-    query = core.Query(query)
+    query = core.Query(question)
     
     results = core.search(index, query)
     for r in results:

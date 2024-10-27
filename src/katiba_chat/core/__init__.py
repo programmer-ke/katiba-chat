@@ -19,7 +19,7 @@ class Article:
     clauses: str
     chapter: str
     number: int
-    part: str | None = None
+    part: str
 
     def __str__(self):
         fmt = textwrap.dedent(f"""
