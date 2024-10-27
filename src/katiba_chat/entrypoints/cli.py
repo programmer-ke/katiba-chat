@@ -12,11 +12,9 @@ ARTICLES_PATH = os.path.join(os.path.dirname(__file__), '..', 'data', 'constitut
 
 
 def main(query: str):
-    with open(ARTICLES_PATH, 'rt') as f:
-        articles = json.load(f)
 
     index_dirname = user_data_dir("whoosh_index")
-    index = retrieval.WhooshIndex(articles, index_dirname)
+    index = retrieval.WhooshIndex(ARTICLES_PATH, index_dirname)
     query = core.Query(query)
     
     result = core.search(index, query)

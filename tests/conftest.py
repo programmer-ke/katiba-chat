@@ -13,8 +13,6 @@ def temp_dir_name():
         yield tempdirname
 
 
-@pytest.fixture(scope="session")
-def constitution_articles():
-    with open(os.path.join(FIXTURES_DIR, 'constitution.json'), 'r') as f:
-        articles = json.load(f)
-    return articles
+@pytest.fixture
+def constitution_articles_path():
+    return os.path.join(FIXTURES_DIR, 'constitution.json')

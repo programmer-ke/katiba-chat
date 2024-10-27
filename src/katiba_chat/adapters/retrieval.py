@@ -1,5 +1,7 @@
 """Retrieval adapters"""
+import json
 import pathlib
+import logging
 
 from whoosh import fields as F
 from whoosh import index as whoosh_index
@@ -8,6 +10,8 @@ from whoosh import qparser
 
 from .. import core
 
+
+log = logging.getLogger(__name__)
 
 class WhooshIndex(core.AbstractIndex):
     """Lexical Search indexing with Whoosh"""
@@ -20,24 +24,32 @@ class WhooshIndex(core.AbstractIndex):
         number=F.STORED,
     )
 
-    def __init__(self, data: list[dict], index_dirname: str | pathlib.Path):
+    def __init__(self, data_path: str, index_dirname: str | pathlib.Path):
         """Initialize the index, creating it if necessary"""
 
-        path = pathlib.Path(index_dirname)
-        if not path.exists():
-            path.mkdir(parents=True)
+        index_dir = pathlib.Path(index_dirname)
+        data_path = pathlib.Path(data_path)
+        self._ensure_exists(index_dir)
+        self._create_index_if_missing(data_path, index_dir)
+        self._index = whoosh_index.open_dir(index_dirname)
+        self._search_fields = ['title', 'clauses', 'chapter', 'part']
 
-        is_empty = len(list(path.iterdir())) == 0
+    def _create_index_if_missing(self, data_path: pathlib.Path, destination: pathlib.Path):
+        is_empty = len(list(destination.iterdir())) == 0
         if is_empty:
-            # create index
-            data_index = whoosh_index.create_in(index_dirname, self.schema)
+            log.info(f"Creating index at {destination}")
+            with open(data_path, 'rt') as f:
+                data = json.load(f)
+                
+            data_index = whoosh_index.create_in(str(destination), self.schema)
             writer = data_index.writer()
             for doc in data:
                 writer.add_document(**doc)
             writer.commit()
 
-        self._index = whoosh_index.open_dir(index_dirname)
-        self._search_fields = ['title', 'clauses', 'chapter', 'part']
+    def _ensure_exists(self, path: pathlib.Path):
+        if not path.exists():
+            path.mkdir(parents=True)
         
     def search(self, query, num_results):
         with self._index.searcher() as searcher:
