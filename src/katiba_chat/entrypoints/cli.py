@@ -46,15 +46,13 @@ def user_data_dir(file_name):
         )
     elif sys.platform.startswith("darwin"):
         os_path = pathlib.Path("~/Library/Application Support")
-    elif sys.platform.startswith("linux"):
+    else:
         defined_location = os.getenv("XDG_DATA_HOME")
         os_path = (
             pathlib.Path(defined_location)
             if defined_location
             else home / ".local" / "share"
         )
-    else:
-        raise ValueError(f"Unknown platform: {sys.platform}")
 
     # join with app dir
     path = os_path / "katiba_chat"
