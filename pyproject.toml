@@ -33,6 +33,7 @@ check_untyped_defs = true
 
 [tool.black]
 line-length = 79
+extend-exclude = 'notebooks\/.*$'
 
 [[tool.mypy.overrides]]
 module="whoosh.*"

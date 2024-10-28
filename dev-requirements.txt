@@ -1,6 +1,4 @@
+pre-commit
 mypy
-black
 pytest
-isort
 python-lsp-server
-flake8

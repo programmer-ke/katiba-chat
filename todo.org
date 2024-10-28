@@ -1,11 +1,11 @@
 #+TODO: TODO(t) IN_PROGRESS(p) | DONE(d)
-* TODO run through linters
+* incorporate semantic search
+ - [ ] notebook experiment with sentence transformer over vectordb2
+ - [ ] implement semantic search
 
-
+* DONE run through linters
 * DONE shorten cli path
 
 * DONE search output should be Article object
 
 * DONE lazily load articles (only if index is missing)
-
-
