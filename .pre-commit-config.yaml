@@ -24,6 +24,13 @@ repos:
     -   id: isort
 -   repo: local
     hooks:
+    - id: mypy
+      name: mypy
+      entry: .venv/bin/mypy
+      language: system
+      types: [python]
+-   repo: local
+    hooks:
     - id: pytest
       name: pytest
       entry: .venv/bin/pytest
@@ -33,8 +40,8 @@ repos:
       always_run: true
 -   repo: local
     hooks:
-    - id: mypy
-      name: mypy
-      entry: .venv/bin/mypy
+    - id: pylint
+      name: pylint
+      entry: .venv/bin/pylint
       language: system
       types: [python]

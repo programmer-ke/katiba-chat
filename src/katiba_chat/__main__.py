@@ -1,3 +1,5 @@
+"""CLI entrypoint"""
+
 import sys
 
 from .entrypoints.cli import entrypoint as cli_entrypoint

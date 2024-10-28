@@ -53,6 +53,8 @@ def user_data_dir(file_name):
             if defined_location
             else home / ".local" / "share"
         )
+    else:
+        raise ValueError(f"Unknown platform: {sys.platform}")
 
     # join with app dir
     path = os_path / "katiba_chat"

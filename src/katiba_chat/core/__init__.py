@@ -35,7 +35,7 @@ class Article:
         return fmt.format(self.clauses).strip()
 
 
-class AbstractIndex(Protocol):
+class AbstractIndex(Protocol):  # pylint: disable=too-few-public-methods
     def search(self, query: Query, num_results: int) -> Iterable[Article]: ...
 
 

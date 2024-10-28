@@ -13,7 +13,9 @@ from .. import core
 log = logging.getLogger(__name__)
 
 
-class WhooshIndex(core.AbstractIndex):
+class WhooshIndex(
+    core.AbstractIndex
+):  # pylint: disable=too-few-public-methods
     """Lexical Search indexing with Whoosh"""
 
     schema = F.Schema(
@@ -39,7 +41,7 @@ class WhooshIndex(core.AbstractIndex):
     ):
         is_empty = len(list(destination.iterdir())) == 0
         if is_empty:
-            log.info(f"Creating index at {destination}")
+            log.info("Creating index at: %s", destination)
             with open(data_path, "rt") as f:
                 data = json.load(f)
 

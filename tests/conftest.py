@@ -1,3 +1,5 @@
+"""Pytest config """
+
 import os
 import tempfile
 
