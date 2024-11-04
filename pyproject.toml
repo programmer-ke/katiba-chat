@@ -14,7 +14,8 @@ classifiers = [
 ]
 
 dependencies = [
-  "Whoosh-Reloaded==2.7.5",
+  "Whoosh-Reloaded>=2.7.5",
+  "sentence-transformers>=3.2",
 ]
 
 [project.urls]

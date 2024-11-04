@@ -1,10 +1,10 @@
 #+TODO: TODO(t) IN_PROGRESS(p) | DONE(d)
 * todo
-** incorporate semantic search
- - [ ] notebook experiment with sentence transformer over vectordb2
- - [ ] implement semantic search
 
 * in progress
+** IN_PROGRESS As a commandline user, I should be able to do a semantic search
+ - [X] notebook experiment with sentence transformer over vectordb2
+ - [ ] implement semantic search
 
 * done
 ** DONE run through linters

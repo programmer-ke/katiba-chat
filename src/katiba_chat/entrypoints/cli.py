@@ -14,8 +14,8 @@ ARTICLES_PATH = os.path.join(
 
 def entrypoint(question: str):
 
-    index_dirname = user_data_dir("whoosh_index")
-    index = retrieval.WhooshIndex(ARTICLES_PATH, index_dirname)
+    index_dirname = user_data_dir("sentence_transformers_index")
+    index = retrieval.SentenceTransformersIndex(ARTICLES_PATH, index_dirname)
     query = core.Query(question)
 
     results = core.search(index, query)
