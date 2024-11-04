@@ -18,6 +18,43 @@ DEFAULT_ST_MODELNAME = "sentence-transformers/multi-qa-MiniLM-L6-cos-v1"
 FileSystemPath = str | pathlib.Path
 
 
+class HybridIndex(core.AbstractIndex):
+    # pylint: disable=too-few-public-methods
+    def __init__(self, lexical_search_index, semantic_search_index):
+        self._lexical_index = lexical_search_index
+        self._semantic_index = semantic_search_index
+
+    def search(self, query, num_results):
+        lexical_search_results = self._lexical_index.search(query, num_results)
+        semantic_search_results = self._semantic_index.search(
+            query, num_results
+        )
+        ranked_results = self._rank_results(
+            lexical_search_results, semantic_search_results
+        )
+        return ranked_results[:num_results]
+
+    @classmethod
+    def _rank_results(cls, *result_sets):
+        scores: dict[int, float] = {}
+        all_articles = {}
+        for results in result_sets:
+            for i, article in enumerate(results):
+                all_articles[article.number] = article
+                scores[article.number] = scores.get(
+                    article.number, 0
+                ) + cls.rrf_score(i + 1)
+
+        sorted_scores = sorted(
+            scores.items(), key=lambda num_score: num_score[1], reverse=True
+        )
+        return [all_articles[number] for number, _ in sorted_scores]
+
+    @staticmethod
+    def rrf_score(rank, k=60):
+        return 1 / (k + rank)
+
+
 class SentenceTransformersIndex(core.AbstractIndex):
     # pylint: disable=too-few-public-methods
 
