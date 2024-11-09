@@ -2,9 +2,12 @@
 * todo
 
 * in progress
-** IN_PROGRESS As a cmd user, I should be able to perform a hybrid search
+** IN_PROGRESS As a cmd user, I should be able to get LLM augmented answers to my queries
+ - [ ] linting
+ - [ ] handle network errors
 
 * done
+** DONE As a cmd user, I should be able to perform a hybrid search
 ** DONE As a commandline user, I should be able to do a semantic search
  - [X] notebook experiment with sentence transformer over vectordb2
  - [X] implement semantic search

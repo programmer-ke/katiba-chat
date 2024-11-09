@@ -31,6 +31,13 @@ repos:
       types: [python]
 -   repo: local
     hooks:
+    - id: pylint
+      name: pylint
+      entry: .venv/bin/pylint
+      language: system
+      types: [python]
+-   repo: local
+    hooks:
     - id: pytest
       name: pytest
       entry: .venv/bin/pytest
@@ -38,10 +45,3 @@ repos:
       types: [python]
       pass_filenames: false
       always_run: true
--   repo: local
-    hooks:
-    - id: pylint
-      name: pylint
-      entry: .venv/bin/pylint
-      language: system
-      types: [python]

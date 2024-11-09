@@ -13,4 +13,4 @@ def test_can_search_articles():
     )
     assert len(result.stdout) > 0
     text = result.stdout.decode("utf-8")
-    assert "chapter" in text.lower()
+    assert "sovereign" in text.lower()
