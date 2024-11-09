@@ -48,7 +48,7 @@ Completions API can be used.
 
 
 A `.env` file in the directory from which you run the application can
-be used to provide these variables. Be sure not to share it publicly
+be used to provide these variables. Be careful not to share it publicly
 e.g. on Github as your API key will be leaked.
 
 
