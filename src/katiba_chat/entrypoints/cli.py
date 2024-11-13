@@ -1,91 +1,27 @@
 """CLI Interface"""
 
-import os
-import pathlib
 import sys
-
-from decouple import config
 
 from .. import core
 from ..adapters import generation, retrieval
+from . import common
 
-LLM_API_KEY = config("LLM_API_KEY")
-LLM_BASE_URL = config(
-    "LLM_BASE_URL", default=generation.OpenAICompatibleLLM.OPENAI_BASE_URL
+st_index_dirname = common.user_data_dir("sentence_transformers_index")
+whoosh_index_dirname = common.user_data_dir("whoosh_index")
+
+hybrid_index = retrieval.HybridIndex.from_index_locations(
+    whoosh_index_dirname, st_index_dirname, data_location=common.ARTICLES_PATH
 )
-LLM_MODEL_NAME = config("LLM_MODEL_NAME")
-ARTICLES_PATH = os.path.join(
-    os.path.dirname(__file__), "..", "data", "constitution_articles.json"
-)
-
-PROMPT_TEMPLATE = """
-You are an expert in kenyan legal and constitutional affairs.
-Answer the `QUESTION` based on the provided `CONTEXT`.
-Use only facts from the `CONTEXT` when answering the `QUESTION`.
-The `CONTEXT` contains the relevant articles from the Kenya 2010 constitution.
-
-# QUESTION
-{query}
-
-# CONTEXT
-{context}
-"""
 
 
 def entrypoint(question: str):
 
     query = core.Query(question)
 
-    st_index_dirname = user_data_dir("sentence_transformers_index")
-    whoosh_index_dirname = user_data_dir("whoosh_index")
-    whoosh_index = retrieval.WhooshIndex(ARTICLES_PATH, whoosh_index_dirname)
-    st_index = retrieval.SentenceTransformersIndex(
-        ARTICLES_PATH, st_index_dirname
-    )
-    hybrid_index = retrieval.HybridIndex(whoosh_index, st_index)
-
     retrieval_results = core.search(hybrid_index, query)
-    prompt = core.Prompt(PROMPT_TEMPLATE, query, retrieval_results)
+    prompt = core.Prompt(common.PROMPT_TEMPLATE, query, retrieval_results)
     llm = generation.OpenAICompatibleLLM(
-        LLM_MODEL_NAME, LLM_API_KEY, LLM_BASE_URL
+        common.LLM_MODEL_NAME, common.LLM_API_KEY, common.LLM_BASE_URL
     )
     response = core.generate(llm, prompt)
     print(response, file=sys.stdout)
-
-
-def user_data_dir(file_name):
-    r"""
-    Get the OS specific location for the destination path
-
-    Uses well known paths for application data files by OS.
-
-    Linux: XDG_DATA_HOME if defined, or ~/.local/share/<application>
-    Windows: LOCALAPPDATA if defined,
-      or C:\Users\<username>\AppData\Local\<application>
-    Mac: ~/Library/Application Support/<application>
-    """
-
-    home = pathlib.Path.home()
-    # get os specific path
-    if sys.platform.startswith("win"):
-        defined_location = os.getenv("LOCALAPPDATA")
-        os_path = (
-            pathlib.Path(defined_location)
-            if defined_location
-            else home / "AppData" / "Local"
-        )
-    elif sys.platform.startswith("darwin"):
-        os_path = pathlib.Path("~/Library/Application Support")
-    else:
-        defined_location = os.getenv("XDG_DATA_HOME")
-        os_path = (
-            pathlib.Path(defined_location)
-            if defined_location
-            else home / ".local" / "share"
-        )
-
-    # join with app dir
-    path = os_path / "katiba_chat"
-
-    # then with destination file
-    return path.expanduser() / file_name

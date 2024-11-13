@@ -1,12 +1,16 @@
 #+TODO: TODO(t) IN_PROGRESS(p) | DONE(d)
 * todo
+** TODO Investigate incorporating chat history
+** TODO Set up static web pages for each article
 
 * in progress
-** IN_PROGRESS As a cmd user, I should be able to get LLM augmented answers to my queries
- - [ ] linting
- - [ ] handle network errors
-
 * done
+** DONE As a web user, I should be able interact with the application from my browser
+  - [X] Can chat via web interface
+  - [X] Can display context
+
+** DONE As a cmd user, I should be able to get LLM augmented answers to my queries
+ - [X] linting
 ** DONE As a cmd user, I should be able to perform a hybrid search
 ** DONE As a commandline user, I should be able to do a semantic search
  - [X] notebook experiment with sentence transformer over vectordb2
