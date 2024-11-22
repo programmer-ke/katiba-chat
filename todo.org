@@ -1,5 +1,6 @@
 #+TODO: TODO(t) IN_PROGRESS(p) | DONE(d)
 * todo
+** TODO Do not use relative paths in entrypoints
 ** TODO Investigate incorporating chat history
 ** TODO Set up static web pages for each article
 
