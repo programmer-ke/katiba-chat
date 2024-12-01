@@ -3,7 +3,8 @@
 What better way to deploy an open source public goods project than on
 a decentralized permissionless platform?
 
-[Akash][akashnet] is an open marketplace for computing resources powered by web3.
+The [Akash][akashnet] network is an open marketplace for computing
+resources powered by web3.
 
 [akashnet]: https://akash.network/
 

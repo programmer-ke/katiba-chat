@@ -54,8 +54,12 @@ The app can now be accessed at: http://localhost:7860
 
 ### Akash
 
-One convenient way to deploy the docker image is through [Akash][akashnet].
+One convenient way to deploy the docker image is through the [Akash][akashnet] network.
 
 [akashnet]: https://akash.network
 
 See detailed instructions [here](akash/README.md)
+
+## License
+
+- GNU AFFERO GENERAL PUBLIC LICENSE
