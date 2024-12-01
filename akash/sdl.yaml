@@ -1,0 +1,35 @@
+---
+version: "2.0"
+services:
+  web:
+    image: programmerke/katiba_chat
+    expose:
+      - port: 7860
+        as: 80
+        to:
+          - global: true
+    env:
+      - LLM_API_KEY=abcxyz
+      - LLM_BASE_URL=https://chatapi.akash.network/api/v1
+      - LLM_MODEL_NAME=Meta-Llama-3-1-405B-Instruct-FP8
+profiles:
+  compute:
+    web:
+      resources:
+        cpu:
+          units: 2
+        memory:
+          size: 1Gb
+        storage:
+          - size: 10Gb
+  placement:
+    dcloud:
+      pricing:
+        web:
+          denom: uakt
+          amount: 10000
+deployment:
+  web:
+    dcloud:
+      profile: web
+      count: 1

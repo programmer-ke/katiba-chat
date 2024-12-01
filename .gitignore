@@ -1,6 +1,7 @@
 .venv
 .ipynb_checkpoints
 .env
+.akash.env
 *.pyc
 whoosh_index
 vectordb_memfile

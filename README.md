@@ -10,52 +10,50 @@ various questions about the Kenya 2010 consitution.
 
 ## Installation
 
-todo: installation command
-
 Three environment variables are needed for LLM access.
 
 - `LLM_API_KEY`: The secret api key from your LLM provider
 - `LLM_BASE_URL`: The API endpoint to your LLM provider
 - `LLM_MODEL_NAME`: The name of model you want to use
 
-For example, when using [Mistral AI][0], these could be:
-
-```sh
-LLM_API_KEY="..."  # generated on the console
-LLM_BASE_URL="https://api.mistral.ai/v1"
-LLM_MODEL_NAME="open-mistral-nemo"  # or whichever model selected
-```
-
-Mistral AI (at the time of writing) gives free credit on signing up, so
-it may be the easiest to start with.
-
-If using self-hosted [Ollama][1], they could be
-
-```sh
-LLM_API_KEY="ollama"
-LLM_BASE_URL="http://localhost:11434/v1"  # or wherever it is serving from
-LLM_MODEL_NAME=".."  # whichever model is installed via ollama
-```
-
-If using [OpenAI][2] as the provider, `LLM_BASE_URL` can be excluded.
-
 Any provider that provides an API compatible with OpenAI's Chat
 Completions API can be used.
 
-[0]: https://mistral.ai/
-[1]: https://ollama.com/
-[2]: https://platform.openai.com
+The API key can be generated in their respective consoles.
+
+Sample Values are shown below:
+
+| Provider               | Base URL                             | Model Name Example               |
+|------------------------|--------------------------------------|----------------------------------|
+| [Akash Network][akash] | https://chatapi.akash.network/api/v1 | Meta-Llama-3-1-405B-Instruct-FP8 |
+| [Mistral AI][mistral]  | https://api.mistral.ai/v1            | open-mistral-nemo                |
+| [Ollama][ollama]       | http://localhost:11434/v1            | qwen2.5:3b                       |
 
 
-A `.env` file in the directory from which you run the application can
-be used to provide these variables. Be careful not to share it publicly
-e.g. on Github as your API key will be leaked.
+[mistral]: https://mistral.ai/
+[ollama]: https://ollama.com/blog/openai-compatibility
+[akash]: https://chatapi.akash.network/
 
+### Docker
 
-## Usage
+The easiest way to run the app is via Docker. Pull it from docker hub:
 
-### Command Line
-
-```sh
-$ python -m katiba_chat "my question in quotes"
+```bash
+docker pull programmerke/katiba_chat:latest
 ```
+
+The app can then be executed by creating a container with the
+variables above. Assuming they are specified in a file
+named `.env`:
+
+```bash
+docker run --env-file .env programmerke/katiba_chat
+```
+
+The app can now be accessed at: http://localhost:7860
+
+One convenient way to deploy the docker image is through [Akash][akashnet].
+
+[akashnet]: https://akash.network
+
+See detailed instructions [here](akash/README.md)
