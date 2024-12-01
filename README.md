@@ -60,6 +60,10 @@ One convenient way to deploy the docker image is through the [Akash][akashnet] n
 
 See detailed instructions [here](akash/README.md)
 
+## Technical Overview
+
+![RAG flow](rag_flow.jpg)
+
 ## License
 
 - GNU AFFERO GENERAL PUBLIC LICENSE
