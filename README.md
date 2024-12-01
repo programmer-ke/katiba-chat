@@ -52,6 +52,8 @@ docker run --env-file .env programmerke/katiba_chat
 
 The app can now be accessed at: http://localhost:7860
 
+### Akash
+
 One convenient way to deploy the docker image is through [Akash][akashnet].
 
 [akashnet]: https://akash.network
